@@ -1,13 +1,15 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-
-export type wind = {
-  speed: number;
-  deg: number;
-  gust: number;
-};
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Weather } from './weather.entity';
 
 @Entity()
-export class Swallow_Weather {
+export class Swallow extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -20,6 +22,7 @@ export class Swallow_Weather {
   @Column()
   date: Date;
 
-  @Column()
-  temp: number;
+  @OneToOne(() => Weather)
+  @JoinColumn({ name: 'weather_id' })
+  weather: Weather;
 }

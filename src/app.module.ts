@@ -1,11 +1,10 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Swallow_Weather } from './entity/swallow.entity';
-import { SwallowController } from './swallow/swallow.controller';
-import { SwallowService } from './swallow/swallow.service';
+import { Swallow } from './entity/swallow.entity';
 import { ConfigModule } from '@nestjs/config';
+import { SwallowModule } from './swallow/swallow.module';
+import { DataSource } from 'typeorm';
+import { Weather } from './entity/weather.entity';
 
 @Module({
   imports: [
@@ -20,11 +19,14 @@ import { ConfigModule } from '@nestjs/config';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [Swallow_Weather],
+      entities: [Swallow, Weather],
       synchronize: true,
     }),
+    SwallowModule,
   ],
-  controllers: [AppController, SwallowController],
-  providers: [AppService, SwallowService],
+  controllers: [],
+  providers: [],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private readonly datasource: DataSource) {}
+}
