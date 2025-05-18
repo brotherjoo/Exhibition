@@ -45,7 +45,7 @@ describe('SwallowService', () => {
       } as Weather;
 
       const MockSwallow = {
-        id: 'dkfjdfa',
+        id: 1,
         longitude: 123,
         latitude: 132,
         date: date,
@@ -63,7 +63,7 @@ describe('SwallowService', () => {
       mockSwallowRepo.findOneBy!.mockResolvedValue(MockSwallow);
       mockWeatherRepo.findOneBy!.mockResolvedValue(MockWeather);
 
-      const result = await service.getById('dkfjdfa');
+      const result = await service.getById(1);
       expect(result).toEqual(MockSwallowResponse);
       expect(mockSwallowRepo.findOneBy).toHaveBeenCalledWith({ id: 'dkfjdfa' });
     });

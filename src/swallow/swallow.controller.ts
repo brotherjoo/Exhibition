@@ -10,13 +10,19 @@ import { SwallowService } from './swallowGet.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
+import { SwallowPostService } from './swallowPost.service';
+import { ParseToFile } from './middleware/parseToFile';
+import { SwallowReq } from './dto/swallowReq.dto';
 
 @Controller('swallow')
 export class SwallowController {
-  constructor(private readonly swallowService: SwallowService) {}
+  constructor(
+    private readonly swallowService: SwallowService,
+    private readonly swallowPostService: SwallowPostService,
+  ) {}
 
-  @Get('/all')
-  GetById(@Param('id') id: string) {
+  @Get('/')
+  GetById(@Param('id') id: number) {
     return this.swallowService.getById(id);
   }
 
@@ -34,14 +40,19 @@ export class SwallowController {
       }),
     }),
   )
-  PostSwallow(
+  async PostSwallow(
     @UploadedFile() file: Express.Multer.File,
     @Param('name') name?: string,
   ) {
     if (!name) {
       name = file.filename;
     }
+    const swallowReqList: SwallowReq[] | null = await ParseToFile.parse(file);
 
-    console.log(file);
+    if (!swallowReqList) {
+      throw new Error('error');
+    }
+
+    this.swallowPostService.PostSwallow(swallowReqList);
   }
 }

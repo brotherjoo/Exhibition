@@ -1,5 +1,5 @@
 export class SwallowResponse {
-  constructor(id: string, temp: number, lon: number, lat: number, date: Date) {
+  constructor(id: number, temp: number, lon: number, lat: number, date: Date) {
     this.id = id;
     this.temp = temp;
     this.lon = lon;
@@ -7,7 +7,7 @@ export class SwallowResponse {
     this.date = date;
   }
 
-  id: string;
+  id: number;
   temp: number;
   lon: number;
   lat: number;
@@ -19,13 +19,13 @@ export class SwallowResponse {
 }
 
 class SwallowBuilder {
-  id: string;
+  id: number;
   temp: number;
   lon: number;
   lat: number;
   date: Date;
 
-  setId(id: string): SwallowBuilder {
+  setId(id: number): SwallowBuilder {
     this.id = id;
     return this;
   }

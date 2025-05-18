@@ -14,7 +14,7 @@ export class SwallowService {
     private readonly weatherRepository: Repository<Weather>,
   ) {}
 
-  async getById(id: string): Promise<SwallowResponse | null> {
+  async getById(id: number): Promise<SwallowResponse | null> {
     try {
       const swallow = await this.swallowRepository.findOneBy({ id: id });
 
@@ -55,7 +55,7 @@ export class SwallowService {
       swallows.forEach((swallow) => {
         this.weatherRepository
           .findOneBy({
-            id: swallow.id,
+            id: swallow.weather.id,
           })
           .then((weather) => {
             if (!weather) {

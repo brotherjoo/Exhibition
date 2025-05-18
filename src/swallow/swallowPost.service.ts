@@ -14,7 +14,7 @@ export class SwallowPostService {
     private readonly weatherRepository: Repository<Weather>,
   ) {}
 
-  // public PostSwallow(swallowReq: SwallowReq): boolean {
-
-  // }
+  public PostSwallow(swallowReq: SwallowReq[]): boolean {
+    return true;
+  }
 }

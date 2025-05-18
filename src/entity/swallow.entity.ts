@@ -3,15 +3,17 @@ import {
   Column,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Weather } from './weather.entity';
+import { SwallowTable } from './swallowTable.entity';
 
 @Entity()
 export class Swallow extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @Column()
   longitude: number;
@@ -25,4 +27,7 @@ export class Swallow extends BaseEntity {
   @OneToOne(() => Weather)
   @JoinColumn({ name: 'weather_id' })
   weather: Weather;
+
+  @ManyToOne(() => SwallowTable, (swallowTable) => swallowTable.id)
+  swallowTable: SwallowTable;
 }

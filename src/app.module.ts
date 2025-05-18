@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { SwallowModule } from './swallow/swallow.module';
 import { DataSource } from 'typeorm';
 import { Weather } from './entity/weather.entity';
+import { SwallowTable } from './entity/swallowTable.entity';
 
 @Module({
   imports: [
@@ -19,7 +20,7 @@ import { Weather } from './entity/weather.entity';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [Swallow, Weather],
+      entities: [Swallow, Weather, SwallowTable],
       synchronize: true,
     }),
     SwallowModule,
